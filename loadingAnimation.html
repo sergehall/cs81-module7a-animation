@@ -50,41 +50,37 @@
       }
 
       .animation-container {
+          width: 400px;
+          height: 400px;
+          background-color: #e0f0ff;
+          border-radius: 20px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          margin-top: 20px;
+          margin: 20px auto;
           gap: 20px;
+          transition: background-color 0.3s ease;
       }
 
       button {
+      }
+
+      /*  Styles for the start button */
+      #start-btn {
           padding: 10px 20px;
-          font-size: 1em;
+          font-size: 1.2rem;
           background-color: #2d8cf0;
           color: white;
           border: none;
-          border-radius: 5px;
-          cursor: pointer;
-      }
-
-      button:hover {
-          background-color: #1b6dc1;
-      }
-      /*  Styles for the start button */
-      #start-btn {
-          font-size: 1.2rem;
-          padding: 10px 20px;
-          cursor: pointer;
-          border: none;
-          background-color: #facc15;
-          color: #92400e;
           border-radius: 8px;
+          cursor: pointer;
           transition: background-color 0.3s ease;
       }
 
       #start-btn:hover {
-          background-color: #fcd34d;
+          background-color: #1b6dc1;
       }
 
       /* Loading animation */
@@ -101,6 +97,7 @@
           font-size: 1rem;
           color: #555;
       }
+
       footer {
           margin-top: 3rem;
           padding-top: 1rem;
@@ -157,7 +154,7 @@
       const sound = document.getElementById("ding-sound");
 
       // Array of frames (loading symbols) to simulate animation
-      const frames = ["⏳", "⌛", ".", "..", "...", "....", "🔄", "🔃"];
+      const frames = ["⏳", "⌛", ".", "..", "...", "....", "🔄"];
 
       // Current index of frame shown
       let index = 0;
@@ -169,7 +166,7 @@
       const maxCycles = 10;
 
       // Set initial background to light blue
-      document.body.style.backgroundColor = "#e0f0ff";
+      document.querySelector(".animation-container").style.backgroundColor = "#e0f0ff";
 
       // Start playing background music when animation starts
       sound.play();
@@ -193,7 +190,7 @@
         const r = Math.round(224 - (224 - 212) * progress); // from 224 to 212
         const g = Math.round(240 + (244 - 240) * progress); // from 240 to 244
         const b = Math.round(255 - (255 - 221) * progress); // from 255 to 221
-        document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+        document.querySelector(".animation-container").style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 
         // Stop the animation after maxCycles
         if (cycleCount >= maxCycles) {
@@ -239,6 +236,3 @@
   https://pixabay.com/users/backgroundmusicforvideos-46459014/
   https://pixabay.com/music/ambient-vapor-334863/
 --
-
-</body>
-</html>
