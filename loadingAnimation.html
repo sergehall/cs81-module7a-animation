@@ -38,9 +38,12 @@
     let cycleCount = 0;
 
     // Max number of animation loops before stopping
-    const maxCycles = 12;
+    const maxCycles = 2;
 
-    // 🔊 Start playing background music when animation starts
+    // Set initial background to light blue
+    document.body.style.backgroundColor = "#e0f0ff";
+
+    // Start playing background music when animation starts
     sound.play();
 
     // This function runs every 500ms (like a loop)
@@ -56,6 +59,14 @@
         cycleCount++;
       }
 
+      // Update background color gradually toward green
+      // Let's fade the blue (e0f0ff) towards green (d4f4dd) over time
+      const progress = cycleCount / maxCycles;
+      const r = Math.round(224 - (224 - 212) * progress); // from 224 to 212
+      const g = Math.round(240 + (244 - 240) * progress); // from 240 to 244
+      const b = Math.round(255 - (255 - 221) * progress); // from 255 to 221
+      document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+
       // Stop the animation after maxCycles
       if (cycleCount >= maxCycles) {
         // Stop the interval (loop)
@@ -64,9 +75,8 @@
         // Final visual feedback
         loader.textContent = "✅";
         status.textContent = "Done!";
-        // Creative addition: background color changes when done
-        document.body.style.backgroundColor = "#d4f4dd";
-        // 🔇 Stop the background music
+
+        // Stop the background music
         sound.pause();
         sound.currentTime = 0;
       }
@@ -84,8 +94,9 @@
     runLoadingAnimation();
   });
 
-  // 💡 Creative idea: could add background music or sound effect when loading completes
+  // 💡 Creative idea: background music plays during loading, background color transitions from blue to green
 </script>
+
 <!--
   Music by Maksym Malko from Pixabay
   https://pixabay.com/users/backgroundmusicforvideos-46459014/
