@@ -6,10 +6,16 @@
 </head>
 <body style="font-family: monospace; text-align: center; padding-top: 100px; background-color: #f4f4f4;">
 
+<!-- Button to start loading animation -->
+<button id="start-btn" style="font-size: 1.2rem; padding: 10px 20px;">Start Loading</button>
+
 <!-- Main display for animation -->
-<div id="loader" style="font-size: 2rem; margin-bottom: 20px;">Loading...</div>
+<div id="loader" style="font-size: 2rem; margin-top: 40px; display: none;">Loading...</div>
 <!-- Status message below animation -->
-<div id="status">Please wait</div>
+<div id="status" style="display: none;">Please wait</div>
+
+<!-- Hidden audio element -->
+<audio id="ding-sound" src="background.mp3" preload="auto" loop></audio>
 
 <script>
   // Main function that starts the animation
@@ -20,8 +26,10 @@
     // Grab the status element to update the text after animation ends
     const status = document.getElementById("status");
 
+    const sound = document.getElementById("ding-sound");
+
     // Array of frames (loading symbols) to simulate animation
-    const frames = ["⏳", "⌛", ".", "..", "...", "🔄", "🔃"];
+    const frames = ["⏳", "⌛", ".", "..", "...", "....","🔄", "🔃"];
 
     // Current index of frame shown
     let index = 0;
@@ -31,6 +39,9 @@
 
     // Max number of animation loops before stopping
     const maxCycles = 12;
+
+    // 🔊 Start playing background music when animation starts
+    sound.play();
 
     // This function runs every 500ms (like a loop)
     const interval = setInterval(() => {
@@ -55,15 +66,31 @@
         status.textContent = "Done!";
         // Creative addition: background color changes when done
         document.body.style.backgroundColor = "#d4f4dd";
+        // 🔇 Stop the background music
+        sound.pause();
+        sound.currentTime = 0;
       }
     }, 500); // Animation speed (milliseconds between frames)
   }
 
-  // Call the animation function
-  runLoadingAnimation();
+  // Call the animation only after user clicks the button (required for audio autoplay)
+  const startBtn = document.getElementById("start-btn");
+  startBtn.addEventListener("click", () => {
+    // Hide the button and show animation elements
+    startBtn.style.display = "none";
+    document.getElementById("loader").style.display = "block";
+    document.getElementById("status").style.display = "block";
+
+    runLoadingAnimation();
+  });
 
   // 💡 Creative idea: could add background music or sound effect when loading completes
 </script>
+<!--
+  Music by Maksym Malko from Pixabay
+  https://pixabay.com/users/backgroundmusicforvideos-46459014/
+  https://pixabay.com/music/ambient-vapor-334863/
+--
 
 </body>
 </html>
