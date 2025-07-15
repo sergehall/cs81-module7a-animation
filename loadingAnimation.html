@@ -6,34 +6,63 @@
 </head>
 <body style="font-family: monospace; text-align: center; padding-top: 100px; background-color: #f4f4f4;">
 
+<!-- Main display for animation -->
 <div id="loader" style="font-size: 2rem; margin-bottom: 20px;">Loading...</div>
+<!-- Status message below animation -->
 <div id="status">Please wait</div>
 
 <script>
+  // Main function that starts the animation
   function runLoadingAnimation() {
+    // Grab the loader element to update emoji frames
     const loader = document.getElementById("loader");
+
+    // Grab the status element to update the text after animation ends
     const status = document.getElementById("status");
 
-    const frames = ["⏳", "⌛", ".", "..", "..."];
-    let index = 0;
-    let cycleCount = 0;
-    const maxCycles = 10;
+    // Array of frames (loading symbols) to simulate animation
+    const frames = ["⏳", "⌛", ".", "..", "...", "🔄", "🔃"];
 
+    // Current index of frame shown
+    let index = 0;
+
+    // Count how many full cycles of animation have passed
+    let cycleCount = 0;
+
+    // Max number of animation loops before stopping
+    const maxCycles = 12;
+
+    // This function runs every 500ms (like a loop)
     const interval = setInterval(() => {
+      // Update the loader's content with the next frame
       loader.textContent = frames[index % frames.length];
+
+      // Move to the next frame
       index++;
+
+      // Every time we complete a full cycle of all frames, increase cycle count
       if (index % frames.length === 0) {
         cycleCount++;
       }
+
+      // Stop the animation after maxCycles
       if (cycleCount >= maxCycles) {
+        // Stop the interval (loop)
         clearInterval(interval);
+
+        // Final visual feedback
         loader.textContent = "✅";
         status.textContent = "Done!";
+        // Creative addition: background color changes when done
+        document.body.style.backgroundColor = "#d4f4dd";
       }
-    }, 500);
+    }, 500); // Animation speed (milliseconds between frames)
   }
 
+  // Call the animation function
   runLoadingAnimation();
+
+  // 💡 Creative idea: could add background music or sound effect when loading completes
 </script>
 
 </body>
